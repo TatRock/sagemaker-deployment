@@ -80,14 +80,17 @@ def train(model, train_loader, epochs, optimizer, loss_fn, device):
             
             # TODO: Complete this train method to train the model provided.
             
-            # Step 1. Forward pass: Compute predicted y by passing x to the model
+            # Step 1: Training pass - zero gradients
+            optimizer.zero_grad()
+            
+            # Step 2. Forward pass: Compute predicted y by passing x to the model
             y_pred = model(batch_X)
             
-            # Step 2. Compute the loss
-            loss = loss_fn(y_pred, batch_y)
+            # Step 3. Compute the loss
+            loss = loss_fn(y_pred, batch_y)         
             
-            # Step 3: zero gradients, perform a backward pass, and update the weights
-            optimizer.zero_grad()
+            # Step 4: perform a backward pass
+            loss.backward()
             optimizer.step()
             
             total_loss += loss.data.item()
